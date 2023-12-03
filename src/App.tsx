@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <SearchBar />
-      <Map />
       <AddButton />
+      <Map />
     </>
-  )
+  );
 }
 
 export default App

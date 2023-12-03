@@ -1,9 +1,15 @@
-// import styles from './Map.modules.css';
+import styles from './SearchBar.module.css';
 
 function SearchBar() {
     return (
-        <div>SearchBar</div>
-    )
+        <div className={styles.searchBarContainer}>
+            <input
+                type="search"
+                placeholder="Search location"
+                className={styles.searchBar}
+            ></input>
+        </div>
+    );
 }
 
 export default SearchBar;

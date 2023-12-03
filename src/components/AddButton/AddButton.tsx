@@ -1,8 +1,11 @@
-// import styles from './Map.modules.css';
+import styles from './AddButton.module.css';
+import AddIcon from './AddIcon.svg?react';
 
 function AddButton() {
     return (
-        <div>AddButton</div>
+        <div className={styles.addButtonContainer}>
+            <AddIcon className={styles.addIcon}/>
+        </div>
     )
 }
 

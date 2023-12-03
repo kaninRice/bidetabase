@@ -1,0 +1,32 @@
+.searchBarContainer {
+    color: white;
+    background-color: var(--dp0);
+
+    height: 60px;
+    width: 80%;
+    max-width: 400px;
+    padding: 0 var(--dp0-border-radius);
+    border-radius: var(--dp0-border-radius);
+
+    z-index: 1001;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchBar {
+    color: white;
+    background-color: var(--dp0);
+    font-family: var(--font-family);
+    font-size: 2.4rem;
+
+    width: 100%;
+
+    border: none;
+    outline: none;
+}

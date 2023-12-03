@@ -1,0 +1,24 @@
+.addButtonContainer {
+    --circle-size: 96px;
+
+    background-color: var(--dp0);
+    height: var(--circle-size);
+    width: var(--circle-size);
+    border-radius: var(--circle-size);
+    
+    z-index: 1001;
+    position: absolute;
+    top: 85%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addIcon {
+    fill: white;
+    height: 70%;
+    width: 70%;
+}
