@@ -5,8 +5,6 @@ const markerIcon = new L.Icon({
     iconUrl: icon,
     iconSize: [80, 120],
     iconAnchor: [40,120],
-    popupAnchor: [0, -100],
-    
 })
 
 export { markerIcon }
