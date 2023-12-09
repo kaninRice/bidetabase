@@ -1,9 +1,38 @@
 import styles from './MarkerInformation.module.css';
 import CloseIcon from './CloseIcon.svg?react'
 
-import type { setAppStateObject } from '../../types/common.ts';
+import { useEffect, useState } from 'react';
 
-function MarkerInformation({ setAppState }: setAppStateObject) {
+import type { setStateStringType, markerObject } from '../../types/common.ts';
+import * as constants from '../../config/config.ts';
+
+function MarkerInformation({
+    setAppState,
+    markerOpenedID,
+}: {
+    setAppState: setStateStringType;
+    markerOpenedID: number | null;
+}) {
+    const url =
+        constants.SERVER_URL +
+        constants.GET_MARKER_INFORMATION_URI +
+        markerOpenedID;
+    const [markerInfo, setMarkerInformation] = useState<markerObject | null>();
+
+    const fetchMarkerData = () => {
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                setMarkerInformation(data[0]);
+            });
+    };
+
+    useEffect(() => {
+        fetchMarkerData();
+    }, [markerOpenedID]);
+
     return (
         <div className={styles.markerInformationContainer}>
             <div className={styles.header}>
@@ -15,13 +44,13 @@ function MarkerInformation({ setAppState }: setAppStateObject) {
             <div
                 className={`${styles.markerInformationField} ${styles.markerInformationImage}`}
             >
-                Image
+                {markerInfo?.image_link}
             </div>
             <div className={styles.markerInformationField}>
-                Roxas Boulevard, Ermita, Manila, Metro Manila, Philippines
+                {markerInfo?.location}
             </div>
             <div className={styles.markerInformationField}>
-                Additional Information
+                {markerInfo?.addi_desc}
             </div>
         </div>
     );

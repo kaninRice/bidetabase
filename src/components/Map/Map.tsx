@@ -4,26 +4,36 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { markerIcon } from './markerIcon.ts'
 import { useEffect, useState } from 'react';
 
-import type { setAppStateObject } from '../../types/common.ts';
+import type {
+    setStateStringType,
+    setStateNumberType,
+} from '../../types/common.ts';
 import * as constants from '../../config/config.ts';
 import { markerObject } from '../../types/common.ts';
 
-function Map({ setAppState } : setAppStateObject) {
-    const [markers, setMarkers] = useState<markerObject[]>([])
+function Map({
+    setAppState,
+    setMarkerOpenedID,
+}: {
+    setAppState: setStateStringType,
+    setMarkerOpenedID: setStateNumberType
+}) {
+    const url = constants.SERVER_URL + constants.GET_ALL_COORDINATES_URI;
+    const [markers, setMarkers] = useState<markerObject[]>([]);
 
-    const fetchMarkerData = () => {
-        fetch(constants.SERVER_URL + constants.GET_ALL_COORDINATES_URI)
-        .then(res => {
-            return res.json()
-        })
-        .then(data => {
-            setMarkers(data)
-        });
-    }
+    const fetchMarkerIdData = () => {
+        fetch(url)
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                setMarkers(data);
+            });
+    };
 
     useEffect(() => {
-        fetchMarkerData();
-    }, [])
+        fetchMarkerIdData();
+    }, []);
 
     return (
         <MapContainer
@@ -46,7 +56,10 @@ function Map({ setAppState } : setAppStateObject) {
                         position={[marker.coordinates.x, marker.coordinates.y]}
                         icon={markerIcon}
                         eventHandlers={{
-                            click: () => setAppState('markerOpened'),
+                            click: () => {
+                                setAppState('markerOpened');
+                                setMarkerOpenedID(marker.id);
+                            },
                         }}
                     />
                 ))}

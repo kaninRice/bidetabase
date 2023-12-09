@@ -8,7 +8,7 @@ import SearchBar from './components/SearchBar/SearchBar.tsx';
 
 function App() {
   const [appState, setAppState] = useState('default');
-  const [markerOpenedID, setMarkerOpenedID] = useState();
+  const [markerOpenedID, setMarkerOpenedID] = useState<number>(-1);
 
   return (
       <>
