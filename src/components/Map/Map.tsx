@@ -4,11 +4,11 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { markerIcon } from './markerIcon.ts'
 import { useEffect, useState } from 'react';
 
-import type { passAppStateObject } from '../../types/common.ts';
+import type { setAppStateObject } from '../../types/common.ts';
 import * as constants from '../../config/config.ts';
 import { markerObject } from '../../types/common.ts';
 
-function Map({ passAppState } : passAppStateObject) {
+function Map({ setAppState } : setAppStateObject) {
     const [markers, setMarkers] = useState<markerObject[]>([])
 
     const fetchMarkerData = () => {
@@ -36,7 +36,7 @@ function Map({ passAppState } : passAppStateObject) {
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 eventHandlers={{
-                    click: () => passAppState('default'),
+                    click: () => setAppState('default'),
                 }}
             />
             {markers.length > 0 &&
@@ -46,7 +46,7 @@ function Map({ passAppState } : passAppStateObject) {
                         position={[marker.coordinates.x, marker.coordinates.y]}
                         icon={markerIcon}
                         eventHandlers={{
-                            click: () => passAppState('markerOpened'),
+                            click: () => setAppState('markerOpened'),
                         }}
                     />
                 ))}

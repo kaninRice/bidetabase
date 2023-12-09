@@ -1,17 +1,16 @@
 import styles from './MarkerInformation.module.css';
 import CloseIcon from './CloseIcon.svg?react'
 
-import type { passAppStateObject } from '../../types/common.ts';
+import type { setAppStateObject } from '../../types/common.ts';
 
-function MarkerInformation({ passAppState } : passAppStateObject) {
-    
-    
+function MarkerInformation({ setAppState }: setAppStateObject) {
     return (
         <div className={styles.markerInformationContainer}>
             <div className={styles.header}>
                 <CloseIcon
                     className={styles.closeIcon}
-                    onClick={() => passAppState('default')}/>
+                    onClick={() => setAppState('default')}
+                />
             </div>
             <div
                 className={`${styles.markerInformationField} ${styles.markerInformationImage}`}

@@ -1,5 +1,5 @@
-export type passAppStateObject = {
-    passAppState: React.Dispatch<React.SetStateAction<string>>;
+export type setAppStateObject = {
+    setAppState: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type markerObject = {

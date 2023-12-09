@@ -8,21 +8,25 @@ import SearchBar from './components/SearchBar/SearchBar.tsx';
 
 function App() {
   const [appState, setAppState] = useState('default');
+  const [markerOpenedID, setMarkerOpenedID] = useState();
 
   return (
-    <>
-      <SearchBar />
-      <AddButton />
+      <>
+          <SearchBar />
+          <AddButton />
 
-      {appState == 'markerOpened' ?
-        (<MarkerInformation passAppState={setAppState}/>) : 
-        (null)
-      }
-      
-      <Map
-        passAppState={setAppState}
-      />
-    </>
+          {appState == 'markerOpened' ? (
+              <MarkerInformation
+                  setAppState={setAppState}
+                  markerOpenedID={markerOpenedID}
+              />
+          ) : null}
+
+          <Map
+              setAppState={setAppState}
+              setMarkerOpenedID={setMarkerOpenedID}
+          />
+      </>
   );
 }
 
