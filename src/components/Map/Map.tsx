@@ -1,11 +1,30 @@
 import styles from './Map.module.css';
 
-import type { passAppStateObject } from '../../types/common.ts'
-
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import { markerIcon } from './markerIcon.ts'
+import { useEffect, useState } from 'react';
+
+import type { passAppStateObject } from '../../types/common.ts';
+import * as constants from '../../config/config.ts';
+import { markerObject } from '../../types/common.ts';
 
 function Map({ passAppState } : passAppStateObject) {
+    const [markers, setMarkers] = useState<markerObject[]>([])
+
+    const fetchMarkerData = () => {
+        fetch(constants.SERVER_URL + constants.GET_ALL_COORDINATES_URI)
+        .then(res => {
+            return res.json()
+        })
+        .then(data => {
+            setMarkers(data)
+        });
+    }
+
+    useEffect(() => {
+        fetchMarkerData();
+    }, [])
+
     return (
         <MapContainer
             className={styles.mapContainer}
@@ -20,13 +39,17 @@ function Map({ passAppState } : passAppStateObject) {
                     click: () => passAppState('default'),
                 }}
             />
-            <Marker
-                position={[14.5123, 121.0165]}
-                icon={markerIcon}
-                eventHandlers={{
-                    click: () => passAppState('markerOpened'),
-                }}
-            />
+            {markers.length > 0 &&
+                markers.map((marker) => (
+                    <Marker
+                        key={marker.id}
+                        position={[marker.coordinates.x, marker.coordinates.y]}
+                        icon={markerIcon}
+                        eventHandlers={{
+                            click: () => passAppState('markerOpened'),
+                        }}
+                    />
+                ))}
         </MapContainer>
     );
 }
