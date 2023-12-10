@@ -1,15 +1,32 @@
-import styles from './SearchBar.module.css';
+import './SearchBar.css';
+
+import { useMap } from 'react-leaflet';
+import { useEffect } from 'react';
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 function SearchBar() {
-    return (
-        <div className={styles.searchBarContainer}>
-            <input
-                type="search"
-                placeholder="Search location"
-                className={styles.searchBar}
-            ></input>
-        </div>
-    );
+    const map = useMap();
+    const provider = new OpenStreetMapProvider();
+
+    // @ts-expect-error construct is from API
+    const searchControl = new GeoSearchControl({
+        provider: provider,
+        style: 'bar',
+        showMarker: false,
+        // @ts-expect-error from API
+        popupFormat: ({ query, result }) => result.label, // eslint-disable-line @typescript-eslint/no-unused-vars
+        // @ts-expect-error from API
+        resultFormat: ({ result }) => result.label,
+    });
+
+    // @ts-expect-error from API
+    useEffect(() => {
+        map.addControl(searchControl);
+        return () => map.removeControl(searchControl);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return null;
 }
 
 export default SearchBar;

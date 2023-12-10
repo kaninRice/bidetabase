@@ -31,6 +31,7 @@ function MarkerInformation({
 
     useEffect(() => {
         fetchMarkerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [markerOpenedID]);
 
     return (

@@ -2,3 +2,9 @@
     width: 100%;
     height: 100vh;
 }
+
+.leaflet-control-geosearch, .leaflet-geosearch-bar {
+    background-color: red;
+    z-index: 1001;
+    position: absolute;
+}

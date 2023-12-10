@@ -10,6 +10,7 @@ import type {
 } from '../../types/common.ts';
 import * as constants from '../../config/config.ts';
 import { markerObject } from '../../types/common.ts';
+import SearchBar from '../SearchBar/SearchBar.tsx';
 
 function Map({
     setAppState,
@@ -33,6 +34,7 @@ function Map({
 
     useEffect(() => {
         fetchMarkerIdData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -49,6 +51,9 @@ function Map({
                     click: () => setAppState('default'),
                 }}
             />
+
+            <SearchBar />
+
             {markers.length > 0 &&
                 markers.map((marker) => (
                     <Marker
