@@ -1,5 +1,5 @@
 .addButtonContainer {
-    --circle-size: 96px;
+    --circle-size: 72px;
 
     background-color: var(--dp0);
     height: var(--circle-size);
@@ -8,8 +8,8 @@
     
     z-index: 1001;
     position: absolute;
-    top: 85%;
-    left: 75%;
+    top: 87%;
+    left: 80%;
     transform: translate(-50%, -50%);
 
     display: flex;
