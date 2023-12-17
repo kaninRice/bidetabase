@@ -3,8 +3,8 @@ export type setStateNumberType = React.Dispatch<React.SetStateAction<number>>;
 export type setStateCoordsType = React.Dispatch<React.SetStateAction<coordinates>>;
 
 export type coordinates = {
-    latitude: number;
-    longitude: number;
+    x: number;
+    y: number;
 };
 
 export type markerObject = {

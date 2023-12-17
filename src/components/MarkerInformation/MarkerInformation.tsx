@@ -3,8 +3,8 @@ import CloseIcon from '../../assets/CloseIcon.svg?react'
 
 import { useEffect, useState } from 'react';
 
+import { SERVER_URL, GET_MARKER_INFO_URI } from '../../config/config.ts';
 import type { setStateStringType, markerObject } from '../../types/common.ts';
-import * as constants from '../../config/config.ts';
 
 function MarkerInformation({
     setAppState,
@@ -13,10 +13,7 @@ function MarkerInformation({
     setAppState: setStateStringType;
     markerOpenedID: number | null;
 }) {
-    const url =
-        constants.SERVER_URL +
-        constants.GET_MARKER_INFORMATION_URI +
-        markerOpenedID;
+    const url = SERVER_URL + GET_MARKER_INFO_URI + markerOpenedID;
     const [markerInfo, setMarkerInformation] = useState<markerObject | null>();
 
     const fetchMarkerData = () => {
@@ -45,7 +42,7 @@ function MarkerInformation({
             <div
                 className={`${styles.markerInformationField} ${styles.markerInformationImage}`}
             >
-                {markerInfo?.image_link}
+                {markerInfo?.image_link} tmp
             </div>
             <div className={styles.markerInformationField}>
                 {markerInfo?.location}

@@ -7,4 +7,4 @@ const markerIcon = new L.Icon({
     iconAnchor: [40,120],
 })
 
-export { markerIcon }
+export default markerIcon;

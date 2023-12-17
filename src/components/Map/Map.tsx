@@ -1,17 +1,22 @@
 import styles from './Map.module.css';
+import markerIcon from './markerIcon.ts';
+
+import SearchBar from '../SearchBar/SearchBar.tsx';
 
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import { markerIcon } from './markerIcon.ts'
 import { useEffect, useState } from 'react';
 
+import {
+    SERVER_URL,
+    GET_ALL_MARKER_COORDS_URI,
+    DEFAULT_COORDS,
+} from '../../config/config.ts';
 import type {
+    markerObject,
     setStateStringType,
     setStateNumberType,
     setStateCoordsType,
 } from '../../types/common.ts';
-import * as constants from '../../config/config.ts';
-import { markerObject } from '../../types/common.ts';
-import SearchBar from '../SearchBar/SearchBar.tsx';
 
 function Map({
     appState,
@@ -24,7 +29,7 @@ function Map({
     setMarkerOpenedID: setStateNumberType,
     setMarkerFormCoord: setStateCoordsType
 }) {
-    const url = constants.SERVER_URL + constants.GET_ALL_COORDINATES_URI;
+    const url = SERVER_URL + GET_ALL_MARKER_COORDS_URI;
     const [markers, setMarkers] = useState<markerObject[]>([]);
 
     const AddLocationEvent = () => {
@@ -33,7 +38,7 @@ function Map({
                 console.log(e.latlng.lat);
                 console.log(e.latlng.lng);
                 setAppState('formOpened');
-                setMarkerFormCoord({latitude: e.latlng.lat, longitude: e.latlng.lng})
+                setMarkerFormCoord({x: e.latlng.lat, y: e.latlng.lng})
             },
         });
 
@@ -58,7 +63,7 @@ function Map({
     return (
         <MapContainer
             className={styles.mapContainer}
-            center={[14.5123, 121.0165]}
+            center={[DEFAULT_COORDS.latitude, DEFAULT_COORDS.longitude]}
             zoom={12}
             zoomControl={false}
         >
@@ -72,11 +77,16 @@ function Map({
 
             <SearchBar />
 
+            {appState == 'addLocationState' ? <AddLocationEvent /> : null}
+
             {markers.length > 0 &&
                 markers.map((marker) => (
                     <Marker
                         key={marker.id}
-                        position={[marker.coordinates.latitude, marker.coordinates.longitude]}
+                        position={[
+                            marker.coordinates.x,
+                            marker.coordinates.y,
+                        ]}
                         icon={markerIcon}
                         eventHandlers={{
                             click: () => {
@@ -86,8 +96,6 @@ function Map({
                         }}
                     />
                 ))}
-
-            {appState == 'addLocationState' ? <AddLocationEvent /> : null}
         </MapContainer>
     );
 }

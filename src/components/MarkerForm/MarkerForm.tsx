@@ -1,14 +1,14 @@
 import styles from './MarkerForm.module.css';
 import CloseIcon from '../../assets/CloseIcon.svg?react'
 
-import type { setStateStringType, coordinates, markerObject } from '../../types/common.ts';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import * as constants from '../../config/config.ts';
+import { SERVER_URL, POST_MARKER_URI } from '../../config/config.ts';
+import type { setStateStringType, coordinates } from '../../types/common.ts';
 
 type formInputs = {
-    xcoord: number,
-    ycoord: number,
+    latitude: number,
+    longitude: number,
     location: string,
     addi_desc: string
 }
@@ -20,9 +20,7 @@ function MarkerForm({
     setAppState: setStateStringType;
     coordinates: coordinates;
 }) {
-    const url =
-        constants.SERVER_URL +
-        constants.POST_MARKER_INFORMATION_URI;
+    const url = SERVER_URL + POST_MARKER_URI;
         
     const { register, handleSubmit } = useForm<formInputs>();
     const onSubmit: SubmitHandler<formInputs> = data => console.log(data)
@@ -38,12 +36,12 @@ function MarkerForm({
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input
                     type="hidden"
-                    value={coordinates.latitude}
-                    {...register('xcoord')}
+                    value={coordinates.x}
+                    {...register('latitude')}
                 />
                 <input type="hidden"
-                    value={coordinates.longitude}
-                    {...register('ycoord')}
+                    value={coordinates.y}
+                    {...register('longitude')}
                 />
                 <div
                     className={`${styles.markerInformationField} ${styles.markerInformationImage}`}

@@ -1,14 +1,14 @@
 import './SearchBar.css';
 
-import { useMap } from 'react-leaflet';
 import { useEffect } from 'react';
+import { useMap } from 'react-leaflet';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
 function SearchBar() {
     const map = useMap();
     const provider = new OpenStreetMapProvider();
 
-    // @ts-expect-error construct is from API
+    // @ts-expect-error from API
     const searchControl = new GeoSearchControl({
         provider: provider,
         style: 'bar',
