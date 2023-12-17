@@ -1,26 +1,44 @@
 import styles from './Map.module.css';
 
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { markerIcon } from './markerIcon.ts'
 import { useEffect, useState } from 'react';
 
 import type {
     setStateStringType,
     setStateNumberType,
+    setStateCoordsType,
 } from '../../types/common.ts';
 import * as constants from '../../config/config.ts';
 import { markerObject } from '../../types/common.ts';
 import SearchBar from '../SearchBar/SearchBar.tsx';
 
 function Map({
+    appState,
     setAppState,
     setMarkerOpenedID,
+    setMarkerFormCoord,
 }: {
+    appState: string,
     setAppState: setStateStringType,
-    setMarkerOpenedID: setStateNumberType
+    setMarkerOpenedID: setStateNumberType,
+    setMarkerFormCoord: setStateCoordsType
 }) {
     const url = constants.SERVER_URL + constants.GET_ALL_COORDINATES_URI;
     const [markers, setMarkers] = useState<markerObject[]>([]);
+
+    const AddLocationEvent = () => {
+        useMapEvents({
+            click(e) {
+                console.log(e.latlng.lat);
+                console.log(e.latlng.lng);
+                setAppState('formOpened');
+                setMarkerFormCoord({latitude: e.latlng.lat, longitude: e.latlng.lng})
+            },
+        });
+
+        return false;
+    };
 
     const fetchMarkerIdData = () => {
         fetch(url)
@@ -34,7 +52,7 @@ function Map({
 
     useEffect(() => {
         fetchMarkerIdData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -58,7 +76,7 @@ function Map({
                 markers.map((marker) => (
                     <Marker
                         key={marker.id}
-                        position={[marker.coordinates.x, marker.coordinates.y]}
+                        position={[marker.coordinates.latitude, marker.coordinates.longitude]}
                         icon={markerIcon}
                         eventHandlers={{
                             click: () => {
@@ -68,6 +86,8 @@ function Map({
                         }}
                     />
                 ))}
+
+            {appState == 'addLocationState' ? <AddLocationEvent /> : null}
         </MapContainer>
     );
 }

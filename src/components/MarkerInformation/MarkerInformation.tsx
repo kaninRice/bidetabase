@@ -1,5 +1,5 @@
 import styles from './MarkerInformation.module.css';
-import CloseIcon from './CloseIcon.svg?react'
+import CloseIcon from '../../assets/CloseIcon.svg?react'
 
 import { useEffect, useState } from 'react';
 

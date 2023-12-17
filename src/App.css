@@ -4,10 +4,10 @@
     --font-family: 'Inter', sans-serif;
     --dp0-border-radius: 16px;
     --dp1-border-radius: 8px;
-    --accent-main: #A05496;
-    --accent-main-light: #FAF6F9;
     --dp0: #121212;
     --dp1: #1e1e1e;
+    --sem-green: #33b247;
+    --sem-red: #a70404;
 
     height: 100vh;
     width: 100%;

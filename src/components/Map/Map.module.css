@@ -4,7 +4,6 @@
 }
 
 .leaflet-control-geosearch, .leaflet-geosearch-bar {
-    background-color: red;
     z-index: 1001;
     position: absolute;
 }

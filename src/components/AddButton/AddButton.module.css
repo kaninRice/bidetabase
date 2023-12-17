@@ -17,6 +17,10 @@
     align-items: center;
 }
 
+.active {
+    background-color: var(--sem-green);
+}
+
 .addIcon {
     fill: white;
     height: 70%;
