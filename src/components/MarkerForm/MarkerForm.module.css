@@ -64,9 +64,26 @@ textarea {
 }
 
 .markerInformationImage {
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.markerInformationImage input {
+    display: none;
+}
+
+.markerInformationImage img {
+    height: 100%;
+    width: 100%;
+    border-radius: var(--dp1-border-radius);
+
+    border: none;
+    opacity: 0.2;
+    position: absolute;
+    object-fit: cover;
 }
 
 .buttonsContainer {

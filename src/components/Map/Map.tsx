@@ -63,7 +63,7 @@ function Map({
     return (
         <MapContainer
             className={styles.mapContainer}
-            center={[DEFAULT_COORDS.latitude, DEFAULT_COORDS.longitude]}
+            center={[DEFAULT_COORDS.x, DEFAULT_COORDS.y]}
             zoom={12}
             zoomControl={false}
         >
