@@ -2,7 +2,7 @@ export type setStateStringType = React.Dispatch<React.SetStateAction<string>>;
 export type setStateNumberType = React.Dispatch<React.SetStateAction<number>>;
 export type setStateCoordsType = React.Dispatch<React.SetStateAction<coordinates>>;
 
-export type InputChangeEventHandler = React.ChangeEventHandler<HTMLInputElement>;
+export type InputChangeEventHandler = React.ChangeEvent<HTMLInputElement>;
 
 export type coordinates = {
     x: number;

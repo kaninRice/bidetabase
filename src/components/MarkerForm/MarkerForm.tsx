@@ -2,17 +2,18 @@ import styles from './MarkerForm.module.css';
 import CloseIcon from '../../assets/CloseIcon.svg?react'
 
 import { useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { SERVER_URL, POST_MARKER_URI } from '../../config/config.ts';
 import type { setStateStringType, InputChangeEventHandler, coordinates } from '../../types/common.ts';
 
 type formInputs = {
-    x: number,
-    y: number,
-    location: string,
-    addi_desc: string
-}
+    x: number;
+    y: number;
+    image: string;
+    location: string;
+    addi_desc: string;
+};
 
 function MarkerForm({
     setAppState,
@@ -22,14 +23,32 @@ function MarkerForm({
     coordinates: coordinates;
 }) {
     const url = SERVER_URL + POST_MARKER_URI;
-    const [image, setImage] = useState('');
+    const [imgPreview, setImgPreview] = useState('');
+    const [imgFile, setImgFile] = useState<File>();
         
     const { register, handleSubmit } = useForm<formInputs>();
     const onImageChange = (e: InputChangeEventHandler) => {
-        if (e.target.files != null) setImage(URL.createObjectURL(e.target.files[0]))
+        if (e.target.files != null) {
+            setImgPreview(URL.createObjectURL(e.target.files[0]))
+            setImgFile(e.target.files[0]);
+        }
     };
 
-    const onSubmit: SubmitHandler<formInputs> = data => console.log(data)
+    const onSubmit = async (data: formInputs) => {
+        const formData = new FormData();
+
+        if (imgFile == null) return;
+        data = { ...data, image: imgFile.name };
+        formData.append('form', JSON.stringify(data));
+        formData.append('file', imgFile);
+        console.log(formData)
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        });
+
+        setAppState('default');
+    }
 
     return (
         <div className={styles.markerInformationContainer}>
@@ -42,12 +61,18 @@ function MarkerForm({
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" value={coordinates.x} {...register('x')} />
                 <input type="hidden" value={coordinates.y} {...register('y')} />
+
                 <label
                     className={`${styles.markerInformationField} ${styles.markerInformationImage}`}
                 >
-                    <input type="file" onChange={onImageChange} />
                     Upload Image
-                    {image == null ? null : <img src={image} />}
+                    <input
+                        {...register('image')}
+                        type="file"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={onImageChange}
+                    />
+                    {imgPreview == '' ? null : <img src={imgPreview} />}
                 </label>
                 <textarea
                     className={styles.markerInformationField}
