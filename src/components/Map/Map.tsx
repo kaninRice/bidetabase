@@ -3,14 +3,15 @@ import markerIcon from './markerIcon.ts';
 
 import SearchBar from '../SearchBar/SearchBar.tsx';
 
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 
 import {
     SERVER_URL,
     GET_ALL_MARKER_COORDS_URI,
     DEFAULT_COORDS,
 } from '../../config/config.ts';
+
 import type {
     markerObject,
     setStateStringType,
@@ -32,11 +33,9 @@ function Map({
     const url = SERVER_URL + GET_ALL_MARKER_COORDS_URI;
     const [markers, setMarkers] = useState<markerObject[]>([]);
 
-    const AddLocationEvent = () => {
+    const SetAddMarkerEvent = () => {
         useMapEvents({
             click(e) {
-                console.log(e.latlng.lat);
-                console.log(e.latlng.lng);
                 setAppState('formOpened');
                 setMarkerFormCoord({x: e.latlng.lat, y: e.latlng.lng})
             },
@@ -77,7 +76,7 @@ function Map({
 
             <SearchBar />
 
-            {appState == 'addLocationState' ? <AddLocationEvent /> : null}
+            {appState == 'setLocationState' ? <SetAddMarkerEvent /> : null}
 
             {markers.length > 0 &&
                 markers.map((marker) => (
@@ -95,7 +94,8 @@ function Map({
                             },
                         }}
                     />
-                ))}
+                ))
+            }
         </MapContainer>
     );
 }

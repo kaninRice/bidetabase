@@ -12,7 +12,7 @@ type formInputs = {
     y: number;
     image: string;
     location: string;
-    addi_desc: string;
+    addi_desc: string | null;
 };
 
 function MarkerForm({
@@ -23,7 +23,7 @@ function MarkerForm({
     coordinates: coordinates;
 }) {
     const url = SERVER_URL + POST_MARKER_URI;
-    const [imgPreview, setImgPreview] = useState('');
+    const [imgPreview, setImgPreview] = useState<string | null>();
     const [imgFile, setImgFile] = useState<File>();
         
     const { register, handleSubmit } = useForm<formInputs>();
@@ -37,11 +37,14 @@ function MarkerForm({
     const onSubmit = async (data: formInputs) => {
         const formData = new FormData();
 
-        if (imgFile == null) return;
-        data = { ...data, image: imgFile.name };
+        if (data.addi_desc == '') data.addi_desc = null;
         formData.append('form', JSON.stringify(data));
-        formData.append('file', imgFile);
-        console.log(formData)
+
+        if (imgFile != null) {
+            data = { ...data, image: imgFile.name };
+            formData.append('file', imgFile);
+        }
+
         fetch(url, {
             method: 'POST',
             body: formData,
@@ -58,6 +61,7 @@ function MarkerForm({
                     onClick={() => setAppState('default')}
                 />
             </div>
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" value={coordinates.x} {...register('x')} />
                 <input type="hidden" value={coordinates.y} {...register('y')} />
@@ -72,18 +76,21 @@ function MarkerForm({
                         accept=".jpg, .jpeg, .png"
                         onChange={onImageChange}
                     />
-                    {imgPreview == '' ? null : <img src={imgPreview} />}
+                    {imgPreview == null ? null : <img src={imgPreview} />}
                 </label>
+
                 <textarea
                     className={styles.markerInformationField}
                     placeholder="Describe location (required)"
                     {...register('location', { required: true })}
                 />
+
                 <textarea
                     className={styles.markerInformationField}
                     placeholder="Additional Description"
                     {...register('addi_desc')}
                 />
+
                 <div className={styles.buttonsContainer}>
                     <button
                         className={styles.cancelButton}
@@ -91,6 +98,7 @@ function MarkerForm({
                     >
                         Cancel
                     </button>
+                    
                     <button className={styles.submitButton} type="submit">
                         Submit
                     </button>

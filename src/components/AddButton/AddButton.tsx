@@ -11,15 +11,15 @@ function AddButton({
 }) {
     const [styleState, setStyleState] = useState(`${styles.addButtonContainer}`);
 
-    const toggleState = (appState: string, setAppState: setStateStringType) => {
-        appState == 'addLocationState'
+    const toggleAppState = (appState: string, setAppState: setStateStringType) => {
+        appState == 'setLocationState'
             ? setAppState('default')
-            : setAppState('addLocationState');
+            : setAppState('setLocationState');
     }
 
+    // set button styling based on current app state
     useEffect(() => {
-        console.log(appState)
-        appState == 'addLocationState'
+        appState == 'setLocationState'
             ? setStyleState(`${styles.addButtonContainer} ${styles.active}`)
             : setStyleState(`${styles.addButtonContainer}`);
     }, [appState]);
@@ -27,7 +27,7 @@ function AddButton({
     return (
         <div
             className={styleState}
-            onClick={() => toggleState(appState, setAppState)}
+            onClick={() => toggleAppState(appState, setAppState)}
         >
             <AddIcon className={styles.addIcon} />
         </div>
