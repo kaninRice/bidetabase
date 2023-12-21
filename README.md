@@ -1,27 +1,43 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# bidetabase
 
-Currently, two official plugins are available:
+Frontend UI which displays user-submitted information regarding public bathrooms available in the area built using React. Used in conjunction with [bidetabase-server](https://github.com/kaninRice/bidetabase-server) which handles the backend API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Clone the project
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+  git clone https://github.com/kaninRice/bidetabase.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Go to the project directory
+
+```bash
+  cd bidetabase
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Run the app
+
+```bash
+  npm run dev
+```
+
+
+## Config Variable
+
+To run this project, you will need to modify `SERVER_URL` in the config.ts file found in src/config/
+
+
+
+## Screenshots
+| | |
+:-:|:-:
+![App Screenshot](https://i.imgur.com/5ZQIXta.png) |  ![App Screenshot](https://i.imgur.com/vF7xT4n.png)
