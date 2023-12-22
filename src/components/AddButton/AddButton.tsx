@@ -4,6 +4,13 @@ import AddIcon from './AddIcon.svg?react';
 import { useEffect, useState } from 'react';
 import type { setStateStringType } from '../../types/common.ts';
 
+/**
+ * Button to add marker; prompts user to provide information after selecting a location
+ * 
+ * @prop appState - current app state
+ * @prop setAppState - sets current app state
+ */
+
 function AddButton({
     appState, setAppState 
 } : { 

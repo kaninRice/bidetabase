@@ -15,6 +15,13 @@ type formInputs = {
     addi_desc: string | null;
 };
 
+/**
+ * Form to get and add user submission to the database
+ * 
+ * @prop setAppState - sets current app state
+ * @prop coordinates - coordinates selected by the user
+ */
+
 function MarkerForm({
     setAppState,
     coordinates,

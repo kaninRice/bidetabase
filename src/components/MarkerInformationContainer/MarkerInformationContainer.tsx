@@ -6,6 +6,13 @@ import { useEffect, useState } from 'react';
 import { SERVER_URL, GET_MARKER_INFO_URI } from '../../config/config.ts';
 import type { setStateStringType, markerObject } from '../../types/common.ts';
 
+/**
+ * Form to get and add user submission to the database
+ * 
+ * @prop setAppState - sets current app state
+ * @prop markerOpenedID - id of the current marker opened
+ */
+
 function MarkerInformationContainer({
     setAppState,
     markerOpenedID,

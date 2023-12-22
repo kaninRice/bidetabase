@@ -4,6 +4,11 @@ import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 
+/**
+ * Searchbar used by the Map component
+ * @component
+ */
+
 function SearchBar() {
     const map = useMap();
     const provider = new OpenStreetMapProvider();

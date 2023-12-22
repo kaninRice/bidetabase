@@ -19,6 +19,15 @@ import type {
     setStateCoordsType,
 } from '../../types/common.ts';
 
+/**
+ * Leaflet map to display markers and search addresses
+ * 
+ * @prop appState - current app state
+ * @prop setAppState - sets current app state
+ * @prop setMarkerOpenedID - sets the id of the current marker opened
+ * @prop setMarkerFormCoord - sets the coordinates of the current marker to be added
+ */
+
 function Map({
     appState,
     setAppState,
